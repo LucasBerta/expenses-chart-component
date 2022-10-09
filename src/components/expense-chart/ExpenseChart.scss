@@ -1,0 +1,135 @@
+@import "../../core/style/mixins.scss";
+@import "../../core/style/variables.scss";
+
+.expense {
+  $containerPadding: 2.5rem;
+  $containerBorderRadius: 1.5rem;
+
+  &-container {
+    width: 42rem;
+
+    @include screenSm {
+      max-width: 90vw;
+    }
+  }
+
+  &__balance-container {
+    @include flexBetween;
+    padding: $containerPadding;
+    margin-bottom: $containerPadding;
+    border-radius: $containerBorderRadius;
+    color: $veryPaleOrange;
+    background-color: $primary;
+
+    .expense--balance-amount {
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+  }
+
+  &__chart-container {
+    padding: $containerPadding;
+    border-radius: $containerBorderRadius;
+    background-color: $veryPaleOrange;
+  }
+
+  &__chart-data {
+    position: relative;
+    display: grid;
+    height: 15rem;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1.5rem;
+
+    margin-top: $containerPadding;
+    margin-bottom: $containerPadding * 2;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: $containerPadding * -1;
+      width: 100%;
+      height: 1px;
+      background-color: $mediumBrown;
+      opacity: 0.2;
+    }
+
+    &__item-container {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    &--item {
+      position: relative;
+      width: 100%;
+      border-radius: 0.5rem;
+      background-color: $primary;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+
+      &.current-day {
+        background-color: $accent;
+
+        &:hover {
+          background-color: lighten($accent, 15%);
+        }
+      }
+
+      &:hover {
+        background-color: lighten($primary, 15%);
+      }
+    }
+
+    &--item--tooltip {
+      position: absolute;
+      width: calc(100% + 2rem);
+      top: -4rem;
+      left: -1rem; // half of exceeding 2rem on width to center element with chart column
+      padding: 0.8rem 0;
+      text-align: center;
+      font-size: 1.4rem;
+      border-radius: 0.5rem;
+      color: $cream;
+      background-color: $darkBrown;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &--item:hover > &--item--tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &--item-label {
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+  }
+
+  &__chart__footer {
+    @include flexBetween;
+    align-items: flex-end;
+
+    &--spent-this-month {
+      font-size: 3.8rem;
+      font-weight: 700;
+      line-height: 3.6rem;
+    }
+
+    &--spent__container > h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    &--difference__container {
+      text-align: right;
+    }
+
+    &--difference-last-month {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+  }
+}
